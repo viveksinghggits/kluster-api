@@ -6,6 +6,8 @@ import (
 	"net"
 
 	"github.com/viveksinghggits/kluster-api/pkg/apis/kluster/v1alpha1"
+	genopenapi "github.com/viveksinghggits/kluster-api/pkg/generated/openapi"
+	"k8s.io/apiserver/pkg/endpoints/openapi"
 	genericapiserver "k8s.io/apiserver/pkg/server"
 	genericoptions "k8s.io/apiserver/pkg/server/options"
 )
@@ -37,6 +39,8 @@ func (k *KlusterServerOptions) Config() (*KlusterConfig, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	serverConfig.OpenAPIV3Config = genericapiserver.DefaultOpenAPIV3Config(genopenapi.GetOpenAPIDefinitions, &openapi.DefinitionNamer{})
 
 	return &KlusterConfig{
 		GenericConfig: serverConfig,

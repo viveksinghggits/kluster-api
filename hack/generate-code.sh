@@ -67,4 +67,10 @@ go run k8s.io/kube-openapi/cmd/openapi-gen \
     "k8s.io/apimachinery/pkg/runtime" \
     "k8s.io/apimachinery/pkg/version"
 
+echo "Generating defaults..."
+go run k8s.io/code-generator/cmd/defaulter-gen \
+    --output-file zz_generated.defaults.go \
+    --go-header-file ${BOILERPLATE} \
+    "${MODULE}/pkg/apis/kluster/v1alpha1"
+
 echo "Done!"
